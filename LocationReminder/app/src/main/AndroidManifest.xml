@@ -33,7 +33,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI" />
 
         <activity android:name="com.udacity.reminder.authentication.AuthenticationActivity"></activity>
         <activity android:name="com.udacity.reminder.locationreminders.RemindersActivity">

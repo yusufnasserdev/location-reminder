@@ -41,6 +41,4 @@
     <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
     <string name="error_adding_geofence">Error Happened, Can\'t Add Geofence</string>
 
-    <!-- API Key  -->
-    <string name="google_maps_key">AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI</string>
 </resources>
