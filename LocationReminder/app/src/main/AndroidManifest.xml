@@ -35,9 +35,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="com.udacity.reminder.authentication.AuthenticationActivity">
-        </activity>
-        <activity android:name="com.udacity.reminder.locationreminders.RemindersActivity" >
+        <activity android:name="com.udacity.reminder.authentication.AuthenticationActivity"></activity>
+        <activity android:name="com.udacity.reminder.locationreminders.RemindersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,6 +44,7 @@
             </intent-filter>
 
         </activity>
+
         <receiver
             android:name="com.udacity.reminder.locationreminders.geofence.GeofenceBroadcastReceiver"
             android:enabled="true"
