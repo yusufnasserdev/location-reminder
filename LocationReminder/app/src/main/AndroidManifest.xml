@@ -7,6 +7,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--         The BACKGROUND_LOCATION permission is required for geofencing functionality to work on Q+ -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
@@ -35,13 +36,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI" />
 
-        <activity android:name="com.udacity.reminder.authentication.AuthenticationActivity"></activity>
-        <activity android:name="com.udacity.reminder.locationreminders.RemindersActivity">
+        <activity
+            android:name="com.udacity.reminder.authentication.AuthenticationActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.udacity.reminder.locationreminders.RemindersActivity"
+            android:exported="true">
 
         </activity>
 
