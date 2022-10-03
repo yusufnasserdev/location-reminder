@@ -1,9 +1,12 @@
 package com.udacity.reminder.locationreminders.reminderslist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import com.firebase.ui.auth.AuthUI
 import com.udacity.reminder.R
+import com.udacity.reminder.authentication.AuthenticationActivity
 import com.udacity.reminder.base.BaseFragment
 import com.udacity.reminder.base.NavigationCommand
 import com.udacity.reminder.databinding.FragmentRemindersBinding
@@ -71,7 +74,14 @@ class ReminderListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-//                TODO: add the logout implementation
+                AuthUI.getInstance().signOut(requireContext())
+                    .addOnSuccessListener {
+                        val intent = Intent(activity, AuthenticationActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+
+                    }
             }
         }
         return super.onOptionsItemSelected(item)
