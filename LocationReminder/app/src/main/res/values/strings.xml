@@ -42,5 +42,6 @@
     <string name="error_adding_geofence">Error Happened, Can\'t Add Geofence</string>
     <string name="my_location">My Location</string>
     <string name="location_permission">Location Permission</string>
+    <string name="unknown_geofence_error">Unknown error: the Geofence service is not available now</string>
 
 </resources>
