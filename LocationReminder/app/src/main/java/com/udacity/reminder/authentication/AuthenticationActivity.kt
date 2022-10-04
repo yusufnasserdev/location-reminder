@@ -1,6 +1,7 @@
 package com.udacity.reminder.authentication
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -45,17 +46,19 @@ class AuthenticationActivity : AppCompatActivity() {
         // Give users the option to sign in / register with their email or Google account. If users
         // choose to register with their email, they will need to create a password as well.
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
         )
 
         // Create and launch sign-in intent. We listen to the response of this activity with the
         // SIGN_IN_RESULT_CODE code.
         startActivityForResult(
-            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
-                providers
-            ).build(), SIGN_IN_RESULT_CODE
+            AuthUI
+                .getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(), SIGN_IN_RESULT_CODE
         )
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -65,7 +68,10 @@ class AuthenticationActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 // User successfully signed in
-                Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
+                Log.i(
+                    TAG,
+                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                )
                 Toast.makeText(this, "Successfully signed in", Toast.LENGTH_SHORT).show()
                 startReminderActivity()
 

@@ -45,4 +45,11 @@
     <string name="unknown_geofence_error">Unknown error: the Geofence service is not available now</string>
     <string name="reminder_details">Reminder Details</string>
 
+    <!-- Activity Reminder Description -->
+    <string name="detail_title">Title: <b>%1$s</b> </string>
+    <string name="detail_description">Description: <b>%1$s</b> </string>
+    <string name="detail_location">Location: <b>%1$s</b> </string>
+    <string name="detail_latitude">latitude: <b>%1$.5f</b></string>
+    <string name="detail_longitude">Longitude: <b>%1$.5f</b></string>
+
 </resources>
