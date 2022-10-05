@@ -40,11 +40,6 @@ android {
         pickFirst "win32-x86-64/attach_hotspot_windows.dll"
         pickFirst "win32-x86/attach_hotspot_windows.dll"
     }
-
-    //dataBinding {
-    //    enabled = true
-    //    enabledForTests = true
-    //}
     buildFeatures {
         dataBinding true
     }
@@ -127,9 +122,10 @@ dependencies {
     androidTestImplementation('org.koin:koin-test:2.0.1') { exclude group: 'org.mockito' }
 
 
-
     //Maps & Geofencing
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
+    implementation "com.google.android.gms:play-services-auth:20.3.0"
+    implementation "com.google.gms:google-services:4.3.14"
     implementation "com.google.android.gms:play-services-maps:$playServicesVersionMaps"
 
     //Firebase Auth
