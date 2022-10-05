@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:780632914264:android:3ea186f1bc78cfc14e0d2d",
+        "mobilesdk_app_id": "1:780632914264:android:7ca7427154a917fe4e0d2d",
         "android_client_info": {
           "package_name": "com.udacity.reminder"
         }
@@ -29,6 +29,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI"
+        },
+        {
+          "current_key": "AIzaSyBVR3ES9RH_PonaShuDjZiectYUm583umE"
         }
       ],
       "services": {

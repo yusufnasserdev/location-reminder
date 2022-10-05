@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlinVersion = '1.5.31'
-    ext.navigationVersion = "2.4.0"
+    ext.kotlinVersion = '1.6.20'
+    ext.navigationVersion = '2.4.1'
 
     repositories {
         google()
@@ -10,7 +10,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath 'com.google.gms:google-services:4.3.13'
