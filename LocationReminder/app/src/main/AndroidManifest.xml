@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.udacity.reminder">
+    package="com.udacity.project4">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,14 +17,14 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.udacity.reminder.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.udacity.reminder.locationreminders.ReminderDescriptionActivity" />
+        <activity android:name="com.udacity.project4.locationreminders.ReminderDescriptionActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,7 +38,7 @@
             android:value="AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI" />
 
         <activity
-            android:name="com.udacity.reminder.authentication.AuthenticationActivity"
+            android:name="com.udacity.project4.authentication.AuthenticationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,17 +47,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.udacity.reminder.locationreminders.RemindersActivity"
+            android:name="com.udacity.project4.locationreminders.RemindersActivity"
             android:exported="true">
 
         </activity>
 
         <receiver
-            android:name="com.udacity.reminder.locationreminders.geofence.GeofenceBroadcastReceiver"
+            android:name="com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="com.udacity.reminder.locationreminders.geofence.GeofenceTransitionsJobIntentService"
+            android:name="com.udacity.project4.locationreminders.geofence.GeofenceTransitionsJobIntentService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>

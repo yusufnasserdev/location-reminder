@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:780632914264:android:7ca7427154a917fe4e0d2d",
+        "mobilesdk_app_id": "1:780632914264:android:d9283b52a62f3f9e4e0d2d",
         "android_client_info": {
-          "package_name": "com.udacity.reminder"
+          "package_name": "com.udacity.project4"
         }
       },
       "oauth_client": [
         {
-          "client_id": "780632914264-j70uvqvh7ofich589mt017n0pfi7pk19.apps.googleusercontent.com",
+          "client_id": "780632914264-3apftl3bo7rl4m87cq212ethlo4p9nqj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.udacity.reminder",
+            "package_name": "com.udacity.project4",
             "certificate_hash": "732982104b5a766e1d6928576327a135f9d63141"
           }
         },
@@ -28,10 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAd6DRseDJMw4VonnJbZFS2f4sgXE4mHRI"
-        },
-        {
-          "current_key": "AIzaSyBVR3ES9RH_PonaShuDjZiectYUm583umE"
+          "current_key": "AIzaSyBOlT28fzNIL1M442uZVR3ZWbXjWQuPc1I"
         }
       ],
       "services": {
