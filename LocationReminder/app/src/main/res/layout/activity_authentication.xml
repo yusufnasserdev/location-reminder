@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Constraint layout to handle the multiple views -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".authentication.AuthenticationActivity">
 
+        <!-- A textView to welcome the user to the app -->
         <TextView
+            android:id="@+id/welcome_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_the_location_reminder_app"
@@ -19,6 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- A sign-in button to the start the user authentication -->
         <Button
             android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
