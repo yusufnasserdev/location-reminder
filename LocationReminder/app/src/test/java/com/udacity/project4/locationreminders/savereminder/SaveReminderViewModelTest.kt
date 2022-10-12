@@ -3,7 +3,7 @@ package com.udacity.project4.locationreminders.savereminder
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.udacity.project4.getOrAwaitValue
+import com.udacity.project4.utils.getOrAwaitValue
 import com.udacity.project4.utils.MainCoroutineRule
 import com.udacity.project4.locationreminders.data.FakeDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi

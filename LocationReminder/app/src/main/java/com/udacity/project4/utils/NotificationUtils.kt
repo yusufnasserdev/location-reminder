@@ -34,6 +34,7 @@ fun sendNotification(context: Context, reminderDataItem: ReminderDataItem) {
     val intent = ReminderDescriptionActivity.newIntent(context.applicationContext, reminderDataItem)
 
     //create a pending intent that opens ReminderDescriptionActivity when the user clicks on the notification
+    // PendingIntent.FLAG_IMMUTABLE is required for API 30+
     val stackBuilder = TaskStackBuilder.create(context)
         .addParentStack(ReminderDescriptionActivity::class.java)
         .addNextIntent(intent)
