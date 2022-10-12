@@ -27,6 +27,5 @@ fun errorMessage(context: Context, errorCode: Int): String {
 
 object GeofencesUtils {
     const val GEOFENCE_RADIUS_IN_METERS = 100f
-    const val EXTRA_GEOFENCE_INDEX = "GEOFENCE_INDEX"
     const val GEOFENCE_EXPIRY = Geofence.NEVER_EXPIRE
 }
