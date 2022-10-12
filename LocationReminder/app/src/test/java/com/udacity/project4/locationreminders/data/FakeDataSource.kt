@@ -2,51 +2,113 @@ package com.udacity.project4.locationreminders.data
 
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
+import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 
-class FakeDataSource(var remindersList: MutableList<ReminderDTO>? = mutableListOf()) : ReminderDataSource {
+/**
+ * A test double for [RemindersLocalRepository] to be used in testing the viewModels
+ */
+
+class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf()) :
+    ReminderDataSource {
+
+    /**
+     * If set to ture, it indicates that something went wrong with
+     * the data source, basically it imitates an unknown exception
+     */
 
     private var shouldReturnError = false
 
+
+    /**
+     * Sets [shouldReturnError] value
+     */
 
     fun setReturnError(value: Boolean) {
         shouldReturnError = value
     }
 
+    /**
+     * @return [Result.Error] if [shouldReturnError] is set to true,
+     * [Result.Success] if [reminders] isNotEmpty and [Result.Error]
+     * if it is empty.
+     */
+
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
+
+        /**
+         * Tests for unknown errors handling, if errors existed,
+         * should return [Result.Error] alongside the error message
+         */
+
         if (shouldReturnError) {
             return Result.Error(
-                "Error getting reminders"
+                "Error retrieving reminders"
             )
         }
-        remindersList?.let { return Result.Success(it) }
-        return Result.Error("Reminders not found")
+
+        /**
+         * Tests for empty list error handling, if the list retrieved is empty,
+         * returns [Result.Error]; otherwise, returns [Result.Success] with the reminders list
+         */
+
+        return if (reminders?.isNotEmpty()!!) {
+            Result.Success(reminders!!)
+        } else {
+            Result.Error("Reminders not found")
+        }
+
     }
+
+    /**
+     * Saves a [ReminderDTO] to the list.
+     */
 
     override suspend fun saveReminder(reminder: ReminderDTO) {
-        remindersList?.add(reminder)
+        reminders?.add(reminder)
     }
 
+    /**
+     * Retrieves a [ReminderDTO] from the list via an id
+     */
+
     override suspend fun getReminder(id: String): Result<ReminderDTO> {
-        val reminder = remindersList?.find { reminderDTO ->
+
+        /**
+         * Tests for unknown errors handling, if errors existed,
+         * should return [Result.Error] alongside the error message
+         */
+
+        if (shouldReturnError) {
+            return Result.Error("An error occurred!")
+        }
+
+        /**
+         * After verifying no errors existed, tries to retrieve the reminder if existed
+         */
+
+        val reminder = reminders?.find { reminderDTO ->
             reminderDTO.id == id
         }
 
-        return when {
-            shouldReturnError -> {
-                Result.Error("Reminder not found!")
-            }
+        /**
+         * Tests for reminder not found error handling, if the reminder value is null,
+         * returns [Result.Error]; otherwise, returns [Result.Success] with the reminder
+         */
 
-            reminder != null -> {
-                Result.Success(reminder)
-            }
-            else -> {
-                Result.Error("Reminder not found!")
-            }
+        return if (reminder != null) {
+            Result.Success(reminder)
+        }
+        else {
+            Result.Error("Reminder not found!")
         }
     }
 
+    /**
+     * Deletes all the reminders in the list
+     */
+
     override suspend fun deleteAllReminders() {
-        remindersList?.clear()
+        reminders?.clear()
     }
 
 }
