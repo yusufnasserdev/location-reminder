@@ -10,10 +10,10 @@ import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment.Companion.ACTION_GEOFENCE_EVENT
 import com.udacity.project4.utils.sendNotification
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import com.udacity.project4.locationreminders.savereminder.SaveReminderFragment.Companion.ACTION_GEOFENCE_EVENT
 import kotlin.coroutines.CoroutineContext
 
 class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
@@ -26,6 +26,9 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         private const val JOB_ID = 573
         private const val TAG = "GeofencesIntentService"
 
+        /**
+         * Starts the JobIntentService to handle the geofencing transition events
+         */
         fun enqueueWork(context: Context, intent: Intent) {
             enqueueWork(
                 context,
@@ -34,6 +37,11 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
             )
         }
     }
+
+    /**
+     * Handles geofencing transition events and send a notification
+     * to the user when he enters the geofence area
+     */
 
     override fun onHandleWork(intent: Intent) {
         if (intent.action == ACTION_GEOFENCE_EVENT) {
@@ -49,10 +57,14 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
                 sendNotification(geofencingEvent.triggeringGeofences)
                 Log.d(TAG, "Geofences found")
             }
-
         }
 
     }
+
+    /**
+     * Sends a notification to the user with the reminder details once they
+     * enter the geofence area.
+     */
 
     private fun sendNotification(triggeringGeofences: List<Geofence>) {
 

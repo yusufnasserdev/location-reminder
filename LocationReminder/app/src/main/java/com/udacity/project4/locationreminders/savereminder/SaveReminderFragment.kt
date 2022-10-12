@@ -84,6 +84,8 @@ class SaveReminderFragment : BaseFragment() {
 
             reminderDataItem = ReminderDataItem(title, description, location, latitude, longitude)
 
+            // Checks the reminder data, if valid and location permissions are granted
+            // calls checkDeviceLocationSettingsAndStartGeofence() otherwise, requests them.
             if (_viewModel.validateEnteredData(reminderDataItem)) {
                 if (foregroundAndBackgroundLocationPermissionApproved()) {
                     checkDeviceLocationSettingsAndStartGeofence()
@@ -94,6 +96,10 @@ class SaveReminderFragment : BaseFragment() {
         }
     }
 
+    /**
+     * @return true if both foreground and background location
+     * permissions are granted; otherwise, false.
+     */
 
     @TargetApi(29)
     private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
@@ -115,6 +121,10 @@ class SaveReminderFragment : BaseFragment() {
         return foregroundLocationApproved && backgroundPermissionApproved
     }
 
+    /**
+     * Prompts the user to request foreground and background location permissions
+     */
+
     @TargetApi(29)
     private fun requestForegroundAndBackgroundLocationPermissions() {
         if (foregroundAndBackgroundLocationPermissionApproved())
@@ -130,6 +140,11 @@ class SaveReminderFragment : BaseFragment() {
         Log.d(TAG, "Request foreground only location permission")
         requestPermissions(permissionsArray, requestCode)
     }
+
+    /**
+     * Handles the permissions request result and calls checkDeviceLocationSettingsAndStartGeofence()
+     * if permissions were granted; otherwise, asks the user to turn on the permissions via device settings
+     */
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -202,6 +217,9 @@ class SaveReminderFragment : BaseFragment() {
         }
     }
 
+    /**
+     * Adds the geofence reminder to the local db
+     */
 
     @SuppressLint("MissingPermission")
     private fun addGeoFenceForRemainder() {

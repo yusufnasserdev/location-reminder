@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -55,10 +55,12 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         setHasOptionsMenu(true)
         setDisplayHomeAsUpEnabled(true)
 
+        // Adding the map setup implementation
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        // Setting the save button clickListener to call onLocationSelected()
         binding.saveBtn.setOnClickListener {
             onLocationSelected()
         }
@@ -66,6 +68,11 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    /**
+     * Sets up the map style, and poiClick, longClick listeners
+     * Then calls getUserLocation if location permissions are granted;
+     * otherwise, requests them.
+     */
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         setMapStyle(map)
@@ -80,6 +87,9 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Takes the selected location details via the maker into the viewModel
+     */
     private fun onLocationSelected() {
         marker?.let { marker ->
             _viewModel.latitude.value = marker.position.latitude
@@ -92,6 +102,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.map_options, menu)
     }
+
+    /**
+     * Sets the user preferred map type via the optionsMenu
+     */
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.normal_map -> {
@@ -113,6 +127,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         else -> super.onOptionsItemSelected(item)
     }
 
+    /**
+     * @return true if location permissions are granted; otherwise, false.
+     */
+
     private fun locationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireActivity(),
@@ -120,6 +138,9 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+    /**
+     * Prompts the user for the location permissions
+     */
     private fun requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -137,7 +158,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         } else {
             this.requestPermissions(
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_CODE_LOCATION_REQUEST
+                REQUEST_LOCATION_PERMISSION
             )
         }
     }
@@ -155,6 +176,11 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             showRationale()
         }
     }
+
+    /**
+     * Prompts the user with the rationale behind the location permissions
+     * request so the user would grant the app these permissions.
+     */
 
     private fun showRationale() {
         if (
@@ -177,6 +203,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Shows POI info if a poi was clicked
+     */
+
     private fun setPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
             map.clear()
@@ -191,6 +221,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             map.animateCamera(CameraUpdateFactory.newLatLng(poi.latLng))
         }
     }
+
+    /**
+     * Drops a pin into the map upon long click.
+     */
 
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
@@ -215,6 +249,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Adds a marker to the map indicating the user current location.
+     */
+
     @SuppressLint("MissingPermission")
     private fun getUserLocation() {
         map.isMyLocationEnabled = true
@@ -226,7 +264,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                     map.moveCamera(
                         CameraUpdateFactory.newLatLngZoom(
                             userLocation,
-                            DEFAULT_ZOOM_LEVEL
+                            ZOOM_LEVEL
                         )
                     )
                     marker = map.addMarker(
@@ -237,6 +275,10 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
                 }
             }
     }
+
+    /**
+     * Sets the map style via the add raw map_style file.
+     */
 
     private fun setMapStyle(map: GoogleMap) {
         try {
@@ -259,6 +301,6 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
 }
 
-private const val PERMISSION_CODE_LOCATION_REQUEST = 1
-private const val DEFAULT_ZOOM_LEVEL = 15f
+private const val REQUEST_LOCATION_PERMISSION = 1
+private const val ZOOM_LEVEL = 12f
 private const val TAG = "SelectLocationFragment"

@@ -73,13 +73,14 @@ class ReminderListFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // Signs the current user out and send him back to the Authentication activity
             R.id.logout -> {
                 AuthUI.getInstance().signOut(requireContext())
                     .addOnSuccessListener {
-                        val intent = Intent(activity, AuthenticationActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
+                        val authActivityIntent = Intent(activity, AuthenticationActivity::class.java)
+                        authActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        authActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(authActivityIntent)
 
                     }
             }

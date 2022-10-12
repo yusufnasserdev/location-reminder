@@ -35,7 +35,10 @@ class ReminderDescriptionActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
 
+        // Gets the reminder details from the intent extras
         val reminderDetails = intent.extras?.get(EXTRA_ReminderDataItem) as ReminderDataItem
+
+        // Sets the reminder details to the ones received via the intent
         binding.reminderDataItem = reminderDetails
 
     }
