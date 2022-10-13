@@ -42,20 +42,29 @@ import org.koin.test.get
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
+//END TO END test to black box test the app
 class RemindersActivityTest :
     AutoCloseKoinTest() {
 
+    // Local repository to used in tests
     private lateinit var repository: ReminderDataSource
+
+    // application context to used in tests
     private lateinit var context: Application
 
     // An Idling Resource that waits for Data Binding to have no pending bindings
     private val dataBindingIdlingResource = DataBindingIdlingResource()
 
+    /**
+     * Prepares for testing by initializing [context], [repository] and Koin module
+     */
+
     @Before
     fun init() {
-        stopKoin()
-        context = getApplicationContext()
+        stopKoin() // Stops current Koin application preparing for starting a new one
+        context = getApplicationContext() // Initializing app context
 
+        // Initializing Koin module
         val mModule = module {
             viewModel { RemindersListViewModel(context, get() as ReminderDataSource) }
             single { SaveReminderViewModel(context, get() as ReminderDataSource) }
@@ -63,8 +72,13 @@ class RemindersActivityTest :
             single { LocalDB.createRemindersDao(context) }
         }
 
+        // Starting koin application
         startKoin { modules(listOf(mModule)) }
+
+        // Initializing the local repo
         repository = get()
+
+        // Cleaning up the repo
         runBlocking { repository.deleteAllReminders() }
     }
 
@@ -87,6 +101,10 @@ class RemindersActivityTest :
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
     }
 
+    /**
+     * @return an activity from a provided activityScenario
+     */
+
     private fun getActivity(activityScenario: ActivityScenario<RemindersActivity>): Activity {
         lateinit var activity: Activity
         activityScenario.onActivity {
@@ -95,62 +113,115 @@ class RemindersActivityTest :
         return activity
     }
 
+    /**
+     * Tests [RemindersActivity] to verify it shows a snackBarMessage that
+     * the added reminder missing a title.
+     */
     @Test
     fun saveReminderScreen_showSnackBarTitleError() {
 
+        // GIVEN - Starts the remindersActivity
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
+        // WHEN - Clicks on the addReminderFAB then Clicks on saveReminder button
         onView(withId(R.id.addReminderFAB)).perform(click())
         onView(withId(R.id.saveReminder)).perform(click())
 
+        // THEN - Shows snackBarMessage err_enter_title
         val snackBarMessage = context.getString(R.string.err_enter_title)
         onView(withText(snackBarMessage))
             .check(ViewAssertions.matches(isDisplayed()))
 
+        // Closes the activity
         activityScenario.close()
     }
+
+    /**
+     * Tests [RemindersActivity] to verify it shows a snackBarMessage that
+     * the added reminder missing the location.
+     */
 
     @Test
     fun saveReminderScreen_showSnackBarLocationError() {
 
+        // GIVEN - Starts the remindersActivity
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
+        // WHEN - Clicks on the addReminderFAB, fill in the title then Clicks on saveReminder button
+
+        // Clicks on the addReminderFAB
         onView(withId(R.id.addReminderFAB)).perform(click())
+
+        // Writes in the reminder title
         onView(withId(R.id.reminderTitle)).perform(typeText("Title"))
+
+        // Closes the keyboard
         Espresso.closeSoftKeyboard()
+
+        // Clicks on saveReminder button
         onView(withId(R.id.saveReminder)).perform(click())
 
+        // THEN - Shows snackBarMessage err_select_location
         val snackBarMessage = context.getString(R.string.err_select_location)
         onView(withText(snackBarMessage))
             .check(ViewAssertions.matches(isDisplayed()))
 
+        // Closes the activity
         activityScenario.close()
     }
 
+    /**
+     * Tests [RemindersActivity] to verify it shows a toastMessage that
+     * the added reminder has been saved successfully.
+     *
+     * NOTE: Make sure the location permissions are granted before running this test
+     * NOTE: Test fails on APIs after API [29], known issue with espresso.
+     */
     @Test
     fun saveReminderScreen_showToastMessage() {
 
+        // GIVEN - Starts the remindersActivity
         val activityScenario = ActivityScenario.launch(RemindersActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
+        // WHEN - Clicks on the addReminderFAB, fill in the details then Clicks on saveReminder button
+
+        // Clicks on the addReminderFAB
         onView(withId(R.id.addReminderFAB)).perform(click())
+
+        // Writes in the reminder title
         onView(withId(R.id.reminderTitle)).perform(typeText("Title"))
-        Espresso.closeSoftKeyboard()
-        onView(withId(R.id.reminderDescription)).perform(typeText("Description"))
+
+        // Closes keyboard
         Espresso.closeSoftKeyboard()
 
+        // Writes in the reminder description
+        onView(withId(R.id.reminderDescription)).perform(typeText("Description"))
+
+        // Closes the keyboard
+        Espresso.closeSoftKeyboard()
+
+        // Clicks on the selectLocation textView
         onView(withId(R.id.selectLocation)).perform(click())
+
+        // Long clicks on the mapFragment to select the location
         onView(withId(R.id.mapFragment)).perform(ViewActions.longClick())
 
+        // Clicks on the save location button
         onView(withId(R.id.save_btn)).perform(click())
+
+        // Clicks on the save reminder button
         onView(withId(R.id.saveReminder)).perform(click())
 
+
+        // THEN - Shows a "Reminder Saved !" toast message
         onView(withText(R.string.reminder_saved))
             .inRoot(withDecorView(Matchers.not(`is`(getActivity(activityScenario).window.decorView))))
             .check(matches(isDisplayed()))
 
+        // Closes the activity
         activityScenario.close()
     }
 

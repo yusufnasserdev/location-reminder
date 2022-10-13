@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.udacity.project4.utils
-
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -25,7 +23,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.IdlingResource
-import java.util.UUID
+import java.util.*
 
 /**
  * An espresso idling resource implementation that reports idle status for all data binding

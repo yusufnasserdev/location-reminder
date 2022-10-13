@@ -16,17 +16,27 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * A [RemindersDao] Unit testing class
+ */
+
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class RemindersDaoTest {
 
+    /**
+     * A [RemindersDatabase] instance to be used in testing the DAO functionality
+     */
     private lateinit var database: RemindersDatabase
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    /**
+     * Initializing the [database] before starting tests
+     */
     @Before
     fun initDb() {
         // using an in-memory database because the information stored here disappears when the
@@ -37,12 +47,21 @@ class RemindersDaoTest {
         ).build()
     }
 
+    /**
+     * Calls [RemindersDatabase.close] to close the database after completing the test
+     */
     @After
     fun closeDb() = database.close()
 
+
+    /**
+     * Saves a reminder to the database, attempts to retrieves it via its id and then verify that
+     * the retrieved reminder details matches the entered one.
+     */
+    
     @Test
     fun saveReminderAndGetById() = runBlockingTest {
-        // GIVEN - save a reminder
+        // GIVEN - save a reminder to the db
         val reminder = ReminderDTO(
             "Wedding Photo Session",
             "Nice lovely park with green areas.",
@@ -66,6 +85,12 @@ class RemindersDaoTest {
 
     }
 
+    /**
+     * Saves a few reminders to the database, attempts to retrieves them 
+     * via [RemindersDao.getReminders] then verify that the retrieved list size
+     * is the same as how many were entered.
+     */
+    
     @Test
     fun getAllRemindersFromDb() = runBlockingTest {
         // GIVEN - save a few reminders to the database
@@ -96,11 +121,16 @@ class RemindersDaoTest {
         database.reminderDao().saveReminder(reminder3)
 
         // WHEN - Retrieving the reminders from the database
-        val remindersList = database.reminderDao().getReminders()
+        val reminders = database.reminderDao().getReminders()
 
-        // THEN - the retrieved list of reminders is not null
-        MatcherAssert.assertThat(remindersList, CoreMatchers.`is`(CoreMatchers.notNullValue()))
+        // THEN - the retrieved list of reminders size is 3 (as entered)
+        MatcherAssert.assertThat(reminders.size, CoreMatchers.`is`(3))
     }
+
+    /**
+     * Saves a few reminders to the database, deletes them via [RemindersDao.deleteAllReminders] 
+     * then verify that the retrieved list is not empty.
+     */
 
     @Test
     fun insertRemindersAndDeleteAllReminders() = runBlockingTest {
@@ -134,9 +164,9 @@ class RemindersDaoTest {
         // WHEN - Deleting the reminders from the database
         database.reminderDao().deleteAllReminders()
 
-        val remindersList = database.reminderDao().getReminders()
+        val reminders = database.reminderDao().getReminders()
 
         // THEN - the retrieved list of reminders is empty
-        MatcherAssert.assertThat(remindersList, CoreMatchers.`is`(emptyList()))
+        MatcherAssert.assertThat(reminders, CoreMatchers.`is`(emptyList()))
     }
 }
