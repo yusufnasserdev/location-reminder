@@ -18,13 +18,7 @@ A Todo list android app with location reminders that remind the user to do somet
 Right click on the `test` or `androidTest` packages and select Run Tests
 
 ### Tests Break Down
-
-```text
-1. androidTest (Instrumented Tests)
-        //TODO: Students explain their testing here.
-2. test (Unit Tests)
-        //TODO: Students explain their testing here.
-```
+- All tests and test related functions are properly explained in their respective files.
 
 ---
 
