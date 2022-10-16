@@ -4,6 +4,10 @@ A Todo list android app with location reminders that remind the user to do somet
 
 ---
 
+## Test run
+
+https://user-images.githubusercontent.com/43588217/196063394-8eb2f267-a37c-4c1d-859c-384fd0051f9e.mp4
+
 ## Dependencies
 
 ```text
