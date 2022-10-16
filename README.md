@@ -8,6 +8,8 @@ A Todo list android app with location reminders that remind the user to do somet
 
 https://user-images.githubusercontent.com/43588217/196063394-8eb2f267-a37c-4c1d-859c-384fd0051f9e.mp4
 
+As Shown in the test run, the geofence and the notifications work on emulator pixel 3 API 29.
+
 ## Dependencies
 
 ```text
