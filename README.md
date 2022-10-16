@@ -10,6 +10,10 @@ https://user-images.githubusercontent.com/43588217/196063394-8eb2f267-a37c-4c1d-
 
 As Shown in the test run, the geofence and the notifications work on emulator pixel 3 API 29.
 
+https://user-images.githubusercontent.com/43588217/196064164-6e24009e-bdef-446a-80a2-33649ee5adc0.mp4
+
+All the unit tests as well as the instrumented tests pass.
+
 ## Dependencies
 
 ```text
