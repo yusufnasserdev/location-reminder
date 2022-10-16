@@ -45,8 +45,11 @@ class SaveReminderFragment : BaseFragment() {
         val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
 
-        // PendingIntent.FLAG_IMMUTABLE is required for API 30+
-        PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        /**
+         * For the Geofence pending intent, we need to explicitly tell the OS that this pending
+         * intent CAN be modified as PendingIntent.FLAG_MUTABLE is required for API 31+
+         */
+        PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
     }
 
     private lateinit var geofencingClient: GeofencingClient
