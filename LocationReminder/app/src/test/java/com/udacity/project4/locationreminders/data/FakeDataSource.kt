@@ -47,15 +47,10 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
         }
 
         /**
-         * Tests for empty list error handling, if the list retrieved is empty,
-         * returns [Result.Error]; otherwise, returns [Result.Success] with the reminders list
+         * If no errors were detected, returns [Result.Success] with the reminders list
          */
 
-        return if (reminders?.isNotEmpty()!!) {
-            Result.Success(reminders!!)
-        } else {
-            Result.Success(emptyList()) // Returns an empty list of ReminderDTO as the RemindersLocalRepository does.
-        }
+        return Result.Success(reminders!!)
 
     }
 
@@ -97,8 +92,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
 
         return if (reminder != null) {
             Result.Success(reminder)
-        }
-        else {
+        } else {
             Result.Error("Reminder not found!")
         }
     }
