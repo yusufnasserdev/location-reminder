@@ -8,7 +8,7 @@ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepositor
  * A test double for [RemindersLocalRepository] to be used in testing the viewModels
  */
 
-class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf()) :
+class FakeDataSource(private var reminders: MutableList<ReminderDTO> = mutableListOf()) :
     ReminderDataSource {
 
     /**
@@ -34,24 +34,27 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
      */
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
+        try {
+            /**
+             * Tests for unknown errors handling, if errors existed,
+             * should return [Result.Error] alongside the error message
+             */
 
-        /**
-         * Tests for unknown errors handling, if errors existed,
-         * should return [Result.Error] alongside the error message
-         */
+            if (shouldReturnError) {
+                return Result.Error(
+                    "Error retrieving reminders"
+                )
+            }
 
-        if (shouldReturnError) {
-            return Result.Error(
-                "Error retrieving reminders"
-            )
+            /**
+             * If no errors were detected, returns [Result.Success] with the reminders list
+             */
+
+            return Result.Success(reminders)
+
+        } catch (exception: Exception) {
+            return Result.Error(exception.localizedMessage)
         }
-
-        /**
-         * If no errors were detected, returns [Result.Success] with the reminders list
-         */
-
-        return Result.Success(reminders!!)
-
     }
 
     /**
@@ -59,7 +62,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
      */
 
     override suspend fun saveReminder(reminder: ReminderDTO) {
-        reminders?.add(reminder)
+        reminders.add(reminder)
     }
 
     /**
@@ -68,32 +71,37 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
 
     override suspend fun getReminder(id: String): Result<ReminderDTO> {
 
-        /**
-         * Tests for unknown errors handling, if errors existed,
-         * should return [Result.Error] alongside the error message
-         */
+        try {
+            /**
+             * Tests for unknown errors handling, if errors existed,
+             * should return [Result.Error] alongside the error message
+             */
 
-        if (shouldReturnError) {
-            return Result.Error("An error occurred!")
-        }
+            if (shouldReturnError) {
+                return Result.Error("An error occurred!")
+            }
 
-        /**
-         * After verifying no errors existed, tries to retrieve the reminder if existed
-         */
+            /**
+             * After verifying no errors existed, tries to retrieve the reminder if existed
+             */
 
-        val reminder = reminders?.find { reminderDTO ->
-            reminderDTO.id == id
-        }
+            val reminder = reminders.find { reminderDTO ->
+                reminderDTO.id == id
+            }
 
-        /**
-         * Tests for reminder not found error handling, if the reminder value is null,
-         * returns [Result.Error]; otherwise, returns [Result.Success] with the reminder
-         */
+            /**
+             * Tests for reminder not found error handling, if the reminder value is null,
+             * returns [Result.Error]; otherwise, returns [Result.Success] with the reminder
+             */
 
-        return if (reminder != null) {
-            Result.Success(reminder)
-        } else {
-            Result.Error("Reminder not found!")
+            return if (reminder != null) {
+                Result.Success(reminder)
+            } else {
+                Result.Error("Reminder not found!")
+            }
+
+        } catch (exception: Exception) {
+            return Result.Error(exception.localizedMessage)
         }
     }
 
@@ -102,7 +110,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO>? = mutableListOf())
      */
 
     override suspend fun deleteAllReminders() {
-        reminders?.clear()
+        reminders.clear()
     }
 
 }

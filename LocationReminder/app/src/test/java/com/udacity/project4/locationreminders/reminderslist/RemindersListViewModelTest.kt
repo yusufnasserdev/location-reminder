@@ -61,6 +61,12 @@ class RemindersListViewModelTest {
         stopKoin()
     }
 
+    @Test
+    fun getReminders_nullRemindersList() = mainCoroutineRule.runBlockingTest {
+        val reminders = remindersRepository.getReminders()
+        assertThat(reminders).isNotNull()
+    }
+
     /**
      * Tests [RemindersListViewModel.loadReminders] and [RemindersListViewModel.showLoading] functionality
      * to verify that [RemindersListViewModel.showLoading] is true while loading the reminders
