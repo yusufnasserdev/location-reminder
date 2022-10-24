@@ -28,9 +28,8 @@ class FakeDataSource(private var reminders: MutableList<ReminderDTO> = mutableLi
     }
 
     /**
-     * @return [Result.Error] if [shouldReturnError] is set to true,
-     * [Result.Success] if [reminders] isNotEmpty and [Result.Error]
-     * if it is empty.
+     * @return [Result.Error] if [shouldReturnError] is set to true;
+     * otherwise, [Result.Success] with the list of reminders found.
      */
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
