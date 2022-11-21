@@ -32,33 +32,33 @@ Right click on the `test` or `androidTest` packages and select Run Tests
 
 ---
 
-## Project Steps
+## Project Walkthrough
 
-- [x] Create a Login screen to ask users to login using an email address or a Google account.  Upon successful login, navigate the user to the Reminders screen.   If there is no account, the app should navigate to a Register screen.
+- A Login screen to ask users to login using an email address or a Google account.  Upon successful login, it navigates the user to the Reminders screen.   If there is no account, it navigates to a Register screen.
 
-- [x] Create a Register screen to allow a user to register using an email address or a Google account.
+- A Register screen to allow a user to register using an email address or a Google account.
 
-- [x] Create a screen that displays the reminders retrieved from local storage. If there are no reminders, display a   "No Data"  indicator.  If there are any errors, display an error message.
+- A home screen that displays the reminders retrieved from local storage. If there are no reminders, it shows a   "No Data"  indicator.  If there are any errors, it displays an error message.
 
-- [x] Create a screen that shows a map with the user's current location and asks the user to select a point of interest to create a reminder.
+- Create a screen that shows a map with the user's current location and asks the user to select a point of interest to create a reminder.
 
-- [x] Create a screen to add a reminder when a user reaches the selected location.  Each reminder should include
+- Create a screen to add a reminder when a user reaches the selected location.  Each reminder should include
 a. title
 b. description
 c. selected location
 
-- [x] Reminder data should be saved to local storage.
+- Reminder data should be saved to local storage.
 
-- [x] For each reminder, create a geofencing request in the background that fires up a notification when the user enters the geofencing area.
+- For each reminder, create a geofencing request in the background that fires up a notification when the user enters the geofencing area.
 
-- [x] Provide testing for the ViewModels, Coroutines and LiveData objects.
+- Provide testing for the ViewModels, Coroutines and LiveData objects.
 
-- [x] Create a FakeDataSource to replace the Data Layer and test the app in isolation.
+- Create a FakeDataSource to replace the Data Layer and test the app in isolation.
 
-- [x] Use Espresso and Mockito to test each screen of the app:
-  - [x] Test DAO (Data Access Object) and Repository classes.
-  - [x] Add testing for the error messages.
-  - [x] Add End-To-End testing for the Fragments navigation.
+- Use Espresso and Mockito to test each screen of the app:
+  - Test DAO (Data Access Object) and Repository classes.
+  - Add testing for the error messages.
+  - Add End-To-End testing for the Fragments navigation.
 
 ---
 
