@@ -40,25 +40,22 @@ Right click on the `test` or `androidTest` packages and select Run Tests
 
 - A home screen that displays the reminders retrieved from local storage. If there are no reminders, it shows a   "No Data"  indicator.  If there are any errors, it displays an error message.
 
-- Create a screen that shows a map with the user's current location and asks the user to select a point of interest to create a reminder.
+- A screen that shows a map with the user's current location and asks the user to select a point of interest to create a reminder.
 
-- Create a screen to add a reminder when a user reaches the selected location.  Each reminder should include
-a. title
-b. description
-c. selected location
+- An add a reminder screen when a user reaches the selected location.  Each reminder should include a title, a description, and the selected location.
 
-- Reminder data should be saved to local storage.
+- Reminder data is saved to local storage.
 
-- For each reminder, create a geofencing request in the background that fires up a notification when the user enters the geofencing area.
+- For each reminder, a geofence is created that fires up a notification when the user enters the geofencing area.
 
-- Provide testing for the ViewModels, Coroutines and LiveData objects.
+- ViewModels, Coroutines and LiveData objects unit tests.
 
-- Create a FakeDataSource to replace the Data Layer and test the app in isolation.
+- A FakeDataSource to replace the Data Layer and test the app in isolation.
 
-- Use Espresso and Mockito to test each screen of the app:
-  - Test DAO (Data Access Object) and Repository classes.
-  - Add testing for the error messages.
-  - Add End-To-End testing for the Fragments navigation.
+- Espresso and Mockito is used to test each screen of the app:
+  - DAO (Data Access Object) and Repository classes testing.
+  - Error messages testing.
+  - End-To-End testing for the Fragments navigation.
 
 ---
 
