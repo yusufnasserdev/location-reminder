@@ -52,7 +52,7 @@ Right click on the `test` or `androidTest` packages and select Run Tests
 
 - A FakeDataSource to replace the Data Layer and test the app in isolation.
 
-- Espresso and Mockito is used to test each screen of the app:
+- Used Espresso and Mockito to test each screen of the app:
   - DAO (Data Access Object) and Repository classes testing.
   - Error messages testing.
   - End-To-End testing for the Fragments navigation.
